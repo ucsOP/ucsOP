@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CENTER</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0d0d0e;
+--coral:#cc785c;
+--amber:#d4956a;
+--sand:#9e8c78;
+--surface:#141415;
+--surface2:#1a1a1b;
+--border:#222224;
+--text:#e8e4df;
+--muted:#5a5650;
+--muted2:#3a3835;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;min-height:100vh}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:190px;min-width:190px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:1.5rem 0}
+.logo{padding:0 1.25rem 2rem;font-size:12px;letter-spacing:.2em;color:var(--coral)}
+.logo span{opacity:.3;color:var(--text)}
+.nav-group{margin-bottom:1.5rem}
+.nav-label{padding:.3rem 1.25rem;font-size:9px;letter-spacing:.2em;color:var(--muted2);text-transform:uppercase}
+.nav-item{display:block;padding:.45rem 1.25rem;font-size:12px;cursor:pointer;color:var(--muted);transition:color .12s;position:relative}
+.nav-item:hover{color:var(--text)}
+.nav-item.active{color:var(--text)}
+.nav-item.active::before{content:'';position:absolute;left:0;top:20%;height:60%;width:2px;background:var(--coral);border-radius:0 2px 2px 0}
+.nav-item.active.i::before{background:var(--amber)}
+.nav-item.active.s::before{background:var(--sand)}
+.main{flex:1;padding:2.5rem 2.75rem;overflow-y:auto}
+.section{display:none}
+.section.active{display:block}
+.page-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--coral);margin-bottom:.4rem}
+.page-label.i{color:var(--amber)}
+.page-label.s{color:var(--sand)}
+.page-title{font-size:28px;font-weight:300;color:var(--text);letter-spacing:-.02em;margin-bottom:2.5rem}
+.block{margin-bottom:2rem}
+.block-title{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.9rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+.items{display:flex;flex-wrap:wrap;gap:.5rem}
+.item{font-size:12px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);padding:.3rem .8rem;border-radius:4px}
+.item.accent{color:var(--text);border-color:var(--muted2)}
+.row-list{display:flex;flex-direction:column;gap:0}
+.row{display:flex;align-items:baseline;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--border);font-size:12px}
+.row:last-child{border-bottom:none}
+.row-key{color:var(--muted);min-width:120px;flex-shrink:0}
+.row-val{color:var(--text)}
+.row-note{color:var(--muted);margin-left:auto;font-size:11px}
+.pipe{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.pipe-step{font-size:12px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);padding:.3rem .8rem;border-radius:4px}
+.pipe-step.hi{color:var(--text);border-color:var(--muted2)}
+.pipe-arrow{color:var(--muted2);font-size:11px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.stat{padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:6px}
+.stat-val{font-size:22px;font-weight:300;color:var(--text);margin-bottom:.3rem}
+.stat-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="layout">
+  <div class="sidebar">
+    <div class="logo">CENTER<span> /f</span></div>
+    <div class="nav-group">
+      <div class="nav-label">Self</div>
+      <div class="nav-item active" onclick="nav(this,'hygiene')">Hygiene</div>
+      <div class="nav-item" onclick="nav(this,'health')">Health</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Input</div>
+      <div class="nav-item i" onclick="nav(this,'brand')">Brand</div>
+      <div class="nav-item i" onclick="nav(this,'learn')">Learn</div>
+      <div class="nav-item i" onclick="nav(this,'work')">Work</div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Systems</div>
+      <div class="nav-item s" onclick="nav(this,'finance')">Finance</div>
+      <div class="nav-item s" onclick="nav(this,'workflows')">Workflows</div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="section active" id="s-hygiene">
+      <div class="page-label">Self</div>
+      <div class="page-title">Hygiene</div>
+      <div class="two-col">
+        <div>
+          <div class="block">
+            <div class="block-title">Daily</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Oral care</span><span class="row-val">2x day</span></div>
+              <div class="row"><span class="row-key">Skin care</span><span class="row-val">2x day</span></div>
+              <div class="row"><span class="row-key">Shower</span><span class="row-val">1–2x day</span></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="block">
+            <div class="block-title">Weekly</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Hair care</span><span class="row-val">Tue + Sat</span></div>
+              <div class="row"><span class="row-key">Clean</span><span class="row-val">Tue + Fri + Sun</span></div>
+              <div class="row"><span class="row-key">Change sheets</span><span class="row-val">Sun</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="s-health">
+      <div class="page-label">Self</div>
+      <div class="page-title">Health</div>
+      <div class="two-col">
+        <div>
+          <div class="block">
+            <div class="block-title">Daily targets</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Sleep</span><span class="row-val">7H</span></div>
+              <div class="row"><span class="row-key">Water</span><span class="row-val">3L</span></div>
+              <div class="row"><span class="row-key">Exercise + log</span><span class="row-val">20'</span></div>
+              <div class="row"><span class="row-key">Posture + mobility</span><span class="row-val">7x week</span></div>
+              <div class="row"><span class="row-key">Meals</span><span class="row-val">2x day</span></div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-title">Stats</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Weight</span><span class="row-val">72 kg</span></div>
+              <div class="row"><span class="row-key">Height</span><span class="row-val">178 cm</span></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="block">
+            <div class="block-title">Focus areas</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Muscle mass</span><span class="row-val">calisthenics</span></div>
+              <div class="row"><span class="row-key">VO2 max</span><span class="row-val">cardio: jogging + boxing</span></div>
+              <div class="row"><span class="row-key">Posture</span><span class="row-val">strength + mobility</span></div>
+            </div>
+          </div>
+          <div class="block">
+            <div class="block-title">Undefined</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Jogging days</span><span class="row-val" style="color:var(--muted)">2x week · TBD</span></div>
+              <div class="row"><span class="row-key">Boxing days</span><span class="row-val" style="color:var(--muted)">3x week · TBD</span></div>
+              <div class="row"><span class="row-key">Meal window</span><span class="row-val" style="color:var(--muted)">TBD</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="s-brand">
+      <div class="page-label i">Input</div>
+      <div class="page-title">Brand</div>
+      <div class="block">
+        <div class="block-title">Platforms</div>
+        <div class="items">
+          <div class="item accent">YouTube — @filipeucs</div>
+          <div class="item accent">TikTok — @filipeucs</div>
+          <div class="item">long form</div>
+          <div class="item">short form</div>
+          <div class="item">personal rants / speak my mind</div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="block-title">Content pipeline</div>
+        <div class="pipe">
+          <div class="pipe-step hi">Ideate</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step hi">Script</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step hi">Record</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step hi">Edit</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step hi">Thumbnail</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step hi">SEO</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step hi">Publish via ucsOP</div>
+        </div>
+        <div style="margin-top:.75rem;font-size:11px;color:var(--muted)">Script + SEO AI-assisted &nbsp;·&nbsp; Publish automated</div>
+      </div>
+      <div class="two-col">
+        <div class="block">
+          <div class="block-title">Long form — track</div>
+          <div class="items">
+            <div class="item">CTR</div>
+            <div class="item">Retention</div>
+            <div class="item">Drop-off</div>
+          </div>
+        </div>
+        <div class="block">
+          <div class="block-title">Short form — track</div>
+          <div class="items">
+            <div class="item">Hook rate</div>
+            <div class="item">Completion</div>
+            <div class="item">Shares</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="s-learn">
+      <div class="page-label i">Input</div>
+      <div class="page-title">Learn</div>
+      <div class="two-col">
+        <div>
+          <div class="block">
+            <div class="block-title">Daily</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Read</span><span class="row-val" style="color:var(--muted)">min pages TBD</span></div>
+              <div class="row"><span class="row-key">Model the greats</span><span class="row-val">study how they think</span></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="block">
+            <div class="block-title">University</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Target GPA</span><span class="row-val">&gt; 16 / 20</span></div>
+              <div class="row"><span class="row-key">Approach</span><span class="row-val">minimum energy, filtered input</span></div>
+              <div class="row"><span class="row-key">Rule</span><span class="row-val">only use what serves the goals</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="s-work">
+      <div class="page-label i">Input</div>
+      <div class="page-title">Work</div>
+      <div class="block">
+        <div class="block-title">Gonzalo's Guest Company</div>
+        <div class="row-list">
+          <div class="row"><span class="row-key">Role</span><span class="row-val">Admin + Dev</span></div>
+          <div class="row"><span class="row-key">Hours</span><span class="row-val">20H / week</span></div>
+          <div class="row"><span class="row-key">Focus areas</span><span class="row-val">Clawbots · Integrations · DNS · Landing pages</span></div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="block-title">Schedule</div>
+        <div class="row-list">
+          <div class="row"><span class="row-key">Tuesday</span><span class="row-val">08:00 – 13:00</span><span class="row-note">5H</span></div>
+          <div class="row"><span class="row-key">Wednesday</span><span class="row-val">11:45 – 14:15</span><span class="row-note">2.5H</span></div>
+          <div class="row"><span class="row-key">Thursday</span><span class="row-val">08:00 – 13:00 or 12:00 – 17:00</span><span class="row-note">5H *</span></div>
+          <div class="row"><span class="row-key">Friday</span><span class="row-val">10:45 – 13:15</span><span class="row-note">2.5H</span></div>
+          <div class="row"><span class="row-key">Saturday</span><span class="row-val">08:00 – 13:00</span><span class="row-note">5H</span></div>
+        </div>
+        <div style="margin-top:.75rem;font-size:11px;color:var(--muted)">* Thursday depends on office</div>
+      </div>
+      <div class="block">
+        <div class="block-title">Rule</div>
+        <div class="items">
+          <div class="item accent">Shift only</div>
+          <div class="item accent">Full focus</div>
+          <div class="item">Log hours per session</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="s-finance">
+      <div class="page-label s">Systems</div>
+      <div class="page-title">Finance</div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-val">35%</div>
+          <div class="stat-lbl">Income → invest</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" style="font-size:16px;padding-top:4px">S&amp;P 500 ETF</div>
+          <div class="stat-lbl">Accumulating</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val" style="font-size:16px;padding-top:4px">Part-time</div>
+          <div class="stat-lbl">Min wage income</div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="block">
+            <div class="block-title">Monthly actions</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Invest</span><span class="row-val">1× ETF purchase</span></div>
+              <div class="row"><span class="row-key">Snapshot</span><span class="row-val">finance review</span></div>
+              <div class="row"><span class="row-key">Emergency fund</span><span class="row-val">track balance</span></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="block">
+            <div class="block-title">Undefined</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">Spend limit</span><span class="row-val" style="color:var(--muted)">TBD</span></div>
+              <div class="row"><span class="row-key">Portfolio holdings</span><span class="row-val" style="color:var(--muted)">TBD</span></div>
+              <div class="row"><span class="row-key">Emergency fund target</span><span class="row-val" style="color:var(--muted)">TBD</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="block-title">Context</div>
+        <div class="row-list">
+          <div class="row"><span class="row-key">Near term</span><span class="row-val">fund decreases — car + insurance spend</span></div>
+          <div class="row"><span class="row-key">After</span><span class="row-val">rebuild emergency fund</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="s-workflows">
+      <div class="page-label s">Systems</div>
+      <div class="page-title">Workflows</div>
+      <div class="two-col">
+        <div>
+          <div class="block">
+            <div class="block-title">Live</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">CENTER bot</span><span class="row-val">Telegram · Hetzner</span></div>
+              <div class="row"><span class="row-key">Weekly review</span><span class="row-val">Sunday</span></div>
+              <div class="row"><span class="row-key">Finance snapshot</span><span class="row-val">monthly</span></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="block">
+            <div class="block-title">To build</div>
+            <div class="row-list">
+              <div class="row"><span class="row-key">ucsOP</span><span class="row-val" style="color:var(--muted)">publish + share pipeline</span></div>
+              <div class="row"><span class="row-key">Inbox</span><span class="row-val" style="color:var(--muted)">triage workflow</span></div>
+              <div class="row"><span class="row-key">Subscriptions</span><span class="row-val" style="color:var(--muted)">management workflow</span></div>
+              <div class="row"><span class="row-key">center.html</span><span class="row-val" style="color:var(--muted)">→ GitHub Pages</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function nav(el,id){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('s-'+id).classList.add('active');
+}
+</script>
+</body>
+</html>
